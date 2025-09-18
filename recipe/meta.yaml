@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_semantic_conventions_ai-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
   sha256: 94efa9fb4ffac18c45f54a3a338ffeb7eedb7e1bb4d147786e77202e159f0036
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - poetry-core
     - pip
   run:
-    - python >={{ python_min }}
+    - python
 
 test:
   imports:
@@ -29,16 +29,21 @@ test:
     - pip check
   requires:
     - pip
-    - python {{ python_min }}
 
 about:
   home: https://www.traceloop.com/openllmetry
-  dev_url: https://github.com/traceloop/openllmetry
-  doc_url: https://www.traceloop.com/docs/openllmetry/introduction
   summary: OpenTelemetry Semantic Conventions Extension for Large Language Models
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
+  description: |
+    This is an extension of the standard OpenTelemetry Semantic Conventions for gen AI applications. 
+    It defines additional attributes for spans that are useful for debugging and monitoring prompts, completions, token usage, etc.
+  dev_url: https://github.com/traceloop/openllmetry
+  doc_url: https://www.traceloop.com/docs/openllmetry/introduction
 
 extra:
   recipe-maintainers:
     - timkpaine
+  skip-lints:
+    - invalid_url
