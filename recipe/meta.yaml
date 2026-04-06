@@ -47,5 +47,3 @@ about:
 extra:
   recipe-maintainers:
     - timkpaine
-  skip-lints:
-    - invalid_url
