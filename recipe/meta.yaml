@@ -2,7 +2,7 @@
 {% set version = "0.5.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -10,7 +10,7 @@ source:
   sha256: 153906200d8c1d2f8e09bd78dbef526916023de85ac3dab35912bfafb69ff04c
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py<39]
 
